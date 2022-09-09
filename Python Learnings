@@ -1,2 +1,4 @@
-animal = lion
+animal = "lion"
 print(animal)
+print(animal)
+print("hellloooo")
