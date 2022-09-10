@@ -38,6 +38,7 @@ round(1.5)
 # This rounds to the nearest whole no.
 
 import math
+from pickle import FALSE, TRUE
 math.floor(1.5)
 # Rounds down to the nearest integer
 
@@ -88,3 +89,55 @@ output = "{0} {1} {2}".format(start,middle,end)
 
 print(output)
 
+
+string.method()
+# this is the formal for running a test on a string e.g.
+
+"hello".count("e")
+# this counts the number of the letter 'e's that appear in hello, which is 1
+
+message = "Happy Birthday"
+message.count("day")
+#this works with functions, here 1 returns
+
+message.upper()
+> HAPPY BIRTHDAY
+
+message.capitalize()
+> Happy birthday
+
+message.title()
+> Happy Birthday
+
+message.lower()
+> happy birthday
+
+message
+> Happy Birthday
+
+# The string didn't change as strings are unmutable, it can be overwritten though
+
+message = message.upper()
+message =
+> HAPPY BIRTHDAY
+
+message.islower()
+> FALSE
+
+message.isupper()
+> TRUE
+
+message.isalpha()
+> FALSE
+#Shows if everything is alphabetic. False as there is a space
+
+message.isdigit()
+> FALSE
+
+message.isalnum()
+> FALSE
+# This shows whether alphanumeric
+
+message.index("birthday")
+> 6
+# This shows the index number of where "birthday" is found, which is index number 6. h = 1, a = 2, p = 3, p = 3, y = 4, space = 5, b = 6
