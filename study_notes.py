@@ -141,6 +141,7 @@ message.isalnum()
 message.index("birthday")
 > 6
 # This shows the index number of where "birthday" is found, which is index number 6. h = 1, a = 2, p = 3, p = 3, y = 4, space = 5, b = 6
+<<<<<<< HEAD
 
 message.index("hadsgiwd")
 > -1
