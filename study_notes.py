@@ -141,3 +141,28 @@ message.isalnum()
 message.index("birthday")
 > 6
 # This shows the index number of where "birthday" is found, which is index number 6. h = 1, a = 2, p = 3, p = 3, y = 4, space = 5, b = 6
+
+message.index("hadsgiwd")
+> -1
+# This shows that the string does not exist
+# Index is case sensitive
+# Could be useful first converting the string to a particular case then running index
+
+x = "000yes000"
+x.strip("0")
+> yes
+# The 0's have been stripped
+
+x.lstrip("0")
+x.rstrip("0")
+# These strip from the left or right side only
+
+x.strip()
+# This strips the spaces
+
+len(x)
+# Shows the length (num characters) of a string
+
+name = input("what is your name?").strip
+# If someone types "Jay  " it will strip the spaces
+
