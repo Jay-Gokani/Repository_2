@@ -1,4 +1,5 @@
-# _____ VARIABLES
+# ===============================================
+# VARIABLES
 
 # Variable = a box which stores data, has a name and value
 number = 1
@@ -19,7 +20,8 @@ total = my_number + my_second_number
 print(total)
 # This makes it quicker
 
-# _____ MATH
+# ===============================================
+# MATH
 
 print(1 + 2)
 # This gives back 3
@@ -39,6 +41,7 @@ round(1.5)
 
 import math
 from pickle import FALSE, TRUE
+from re import L
 from xml.dom.pulldom import SAX2DOM
 math.floor(1.5)
 # Rounds down to the nearest integer
@@ -51,7 +54,8 @@ math.ceil(1.5)
 
 # Whole numbers are integers, decimal numbers are floats
 
-# _____ STRINGS
+# ===============================================
+# STRINGS
 
 message = "I said "hello""
 # This is a broken string - fix by using single quotes
@@ -200,3 +204,131 @@ a[a.index("sad"):a.index("boy")]
 
 # Index only return the first time the slice is mentioned in the string
 
+
+# ===============================================
+# LOGIC
+# Boolean is a data type which evaluates whether a statement is True or False
+# 2 = 3     using the assignment operator - used for a function
+# 2 == 3    using the equality operator - used to set/check if values are equal to eachother
+
+# Logical comparison operators: ==, !=, >, <, <=, >=
+
+2 == 3
+> False
+# This is evaluating if 2 is equal to 3
+
+a = 100
+b = 150
+
+if a>b:
+    print("a is bigger than b")
+elif a<b:
+    print("b is bigger than a")
+else:
+    print("a=b")
+
+# Operators: combining if with not, and, or
+
+not 4 == 3
+> True (it is True that 4 does not == 3)
+
+not 2 < 3
+> False (it is False that 3 is not greater than 2)
+# The not operator gives the opposite of the input, like a minus sign
+
+C = 10
+D = 5
+
+if C > 10 and D > 1:
+      print("it worked")
+> Error (as both conditions were not satisfied)
+
+if not (C > 10 and D > 1):
+      print("it worked")
+> "it worked" (false inside the brackets + false from not = true)
+
+
+c = 5
+d = -1
+
+if c > 1 or d > 1:
+    print("it worked")
+> it worked
+
+# not can be combined with the or to make it negative e.g.
+
+if not (c > 1 or d > 1):
+    print("it worked")
+> Error
+
+# false and true = false
+# false or true = true
+# it tries to be true but if both, it's false. If you're bad and good, you're still bad
+# in general, not switches the sign of anything - work is out by thinking if a statement is overall positive or negative
+
+#_____ Data Structures: Lists, Tuples, Dictionaries
+
+our_list = [2, "A", 1, 7, TRUE]
+print(our_list)
+> [2, A, 1, 7, TRUE]
+# Lists can have any type of variable
+
+our_list[3]
+> 7
+# Selects the third element to bring it back
+
+our_list[0:3:1]
+> [2, "A", 1]
+
+second_list = [4, 1, [5, 2], 7]
+second_list[2][0]
+> 5
+# There is a list within a list. We queried the second element which is the second list, then then zeroth element within that list
+# This follows the normal slicing rules
+
+my_table = [ [1, 2, 3] , [4, 5, 6] , [7, 8, 9] ]
+
+my_table[0]
+> [1, 2, 3]
+
+my_table[1]
+> [4, 5, 6]
+
+my_table[2]
+> [7, 8, 9]
+
+# By doing this, we have rows and cols
+# If we carried on with  lists within the above lists, we could make 3D structures, then 4D etc 
+# Slices don't modify the list, they just take a copy
+
+my_table[0][1]
+> 2
+# This is effectively like doing zeroth row, second col
+
+l = [1, 2, 3]
+2 in l
+> TRUE
+
+known_users = ["Jay", "Dan", "Eddie", "George", "Harry"]
+
+print(len(known_users))
+# Prints the length of the list i.e., num of known_users
+
+# Deleting data:
+
+example = [5, 2, 3, 2, 4]
+
+example.remove("2")
+print(example)
+> [5, 3, 2, 4]
+# removed the first occurance of "2"
+# good when knowing the value to remove but leaves further occurances
+
+del example[1]
+print(example)
+> [5, 3, 2, 4]
+# removed element number one 
+# good when knowing element num and ability to remove all occurances in one line by writing further elements
+
+del example[0:2]
+# can also cut out slices

@@ -1,14 +1,24 @@
-# Ask user for DoB
-birth = input("What is your date of birth (e.g. 14/03/1990?)").strip()
+# The Anti-Security Bot
 
-# Slice day
-day = birth[:2]
+known_users = ["Jay", "Dan", "Eddie", "George", "Harry"]
+# The known users in the system
 
-# Slice month
-month = birth[3:5] 
+while True:
+    print("Hi! My name is Rob Oto")
+    name = input("What is your name?: ").strip().capitalize()
 
-# Slice year
-year = birth[6:]
+# We have two methods on the end to strip any blank space at the end and to capitalize the first letter, in case a name is entered like 'jay'
+   
+    if name in known_users:
+        print("Hello {}!".format(name))
+        remove = input("Would you like to be removed from the system (y/n)?: ").lower()
 
-# Output
-print("You were born on day {} of month {} in the year {}".format(day, month, year))
+# We added lower at the end of the line to convert their response to lowecase
+
+        if remove == "y":
+            known_users.remove(name)
+
+# This remove function only removes the first occurance of the name
+
+    else:
+        print("Name not recognised")
