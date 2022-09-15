@@ -332,3 +332,83 @@ print(example)
 
 del example[0:2]
 # can also cut out slices
+
+#______ Adding to a list
+
+dogs = ["Milo", "Rox", "Trixy"]
+dogs.append("Oscar")
+print(dogs)
+> ['Milo', 'Rox', 'Trixy', 'Oscar']
+# This has added a string item to the list
+
+dogs = ["Milo", "Rox", "Trixy"]
+wild_dogs = ["Gruff", "Gnasher"]
+dogs.append(wild_dogs)
+print(dogs)
+['Milo', 'Rox', 'Trixy', ['Gruff', 'Gnasher']]
+# This has added a list of strings to a list of strings
+
+A = [5, 1, 6, 3]
+A.append(4)
+print(A)
+# This also works with adding one integer to a list
+
+B = [3, 5, 1, 5]
+C = [2, 4]
+B.append(C)
+print(B)
+# This also works with adding a list of integers to a list
+# Don't ever do B = B.append(C) as the equal operator will remove the data
+
+A = [5, 1, 6, 3]
+A = A + [2, 5]
+print(A)
+> [5, 1, 6, 3, 2, 5]
+# This has added integers to the list
+
+B = [3, 5, 1, 5]
+B = B + [[2, 4]]
+print(B)
+> [3, 5, 1, 5, [2, 4]]
+# This has added an integer list to a list of integers
+print(B[-1])
+# This removes the endmost element i.e. the [2, 4]
+
+c = [3, 2, 6]
+c.insert(2, 50)
+print(c)
+> [3, 2, 50, 6]
+# We have inserted the num 50 in element num 2
+
+c.insert(2, [50, 10])
+> [3, 2, [50, 10], 6]
+# This also works with slices
+
+# Lists are mutable (can be changed), so never write name = name.function , whether that function be remove, append etc
+
+#______ Tuples
+
+# A tuple is like an immutable list, which is good for protecting data
+# A string is also immutable
+
+example = (8, "a", 5)
+# A tuple is like an immutable list, with no square brackets
+# To make it obvious that it's a tuple, using brackets it common practice, but aren't technically neccessery
+
+example[0:1]
+> (8)
+# Can also slice tuples
+
+A = [1, 2, 3]
+# This is a list due to the square brackets
+tuple(A)
+> (1, 2, 3)
+# This has converted the list into a tuple
+
+(A, B, C) = 1, 2, 3
+print(A, B, C)
+> 1, 2, 3
+print(A)
+> 1
+# Assigning multiple values
+
