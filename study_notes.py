@@ -479,3 +479,24 @@ students = {
     # pass tells Python to continue with the programme
     else:
         print("Sorry, we don't have that choice")
+
+#_____ Loops
+
+while condition:
+    code
+# while statement loops something while something is true
+
+print(1)
+print(2)
+print(3)
+print(4)
+print(5)
+# This works but is long
+
+number = 1
+
+while number <= 5:
+    print(number)
+    number = number + 1
+# A quicker loop
+
