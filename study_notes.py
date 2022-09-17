@@ -509,3 +509,26 @@ for pancakes in range(1, 11, 2):
     print(pancakes)
 # prints in steps of 2 from 1 to up to but not including 11
 
+#_____ For Loop
+# The syntax includes a list, then 
+# for *item* in *list:
+#   code
+# Notice that the name of the items doesn't need to be called before the for loop
+
+my_list = ["apple", "cherry", "melon"]
+
+for item in my_list:
+    print(item)
+# Goes through the list, printing each item in turn
+
+for item in my_list:
+    print(item + ' might be the best fruit')
+# The same statement has been added to each item here
+
+even_numbers = [x for x in range(1,11)
+    if x % 2 == 0]
+print(even_numbers)
+
+words = ("jam", "contains", "strawberries")
+item = [ingredient.upper() for ingredient in words]
+print(item)
