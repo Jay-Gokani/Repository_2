@@ -500,3 +500,12 @@ while number <= 5:
     number = number + 1
 # A quicker loop
 
+for pancakes in range(1, 11):
+    print(pancakes)
+# prints a col of 1, 2, 3, 4, 5 up to 10
+# notice that the range goes one higher than what we want to include
+
+for pancakes in range(1, 11, 2):
+    print(pancakes)
+# prints in steps of 2 from 1 to up to but not including 11
+
