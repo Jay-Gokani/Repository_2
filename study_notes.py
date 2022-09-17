@@ -412,3 +412,70 @@ print(A)
 > 1
 # Assigning multiple values
 
+#_____ Dictionaries
+# They store key-values, so when you look up a variable, it shows the value - like a real dictionary
+# Dictionaries don't support indexing, looking via element number, as they don't have an order
+# You can either convert to a list or lookup via the key
+
+students = {"Jay": 24, "Eddie": 23, "Dan": 45}
+print(students["Dan"])
+> 45
+
+students = {"Jay": 24, "Eddie": 23, "Dan": 45}
+students ["Fred"] = 27
+print(students["Fred"])
+> 27
+# This has added a new key and can be used to append a key
+
+del students["Fred"]
+# This has deleted him
+
+a = list(students.keys())
+b = list(students.values())
+print(a)
+print(b)
+# This converts to a list then prints
+
+students.items()
+> dict_items([('Jay', 24), ('Eddie', 23), ('Dan', 45)])
+# Pulls keys and values
+
+b = list(students.values())[2:]
+# Can pull out slices as it's a list
+
+
+students = {
+    "Jay": ["ID1", 24, "A"],
+    "Eddie": ["ID2", 23, "B"],
+    "Dan": ["ID3", 45, "A"]
+    }
+
+print(students["Jay"])
+> ['ID1', 24, 'A']
+print(students["Dan"][1:])
+> [45, 'A']
+# Multiple values can be assigned to a key
+# Lists can be added for each key. As long as we know the order, we can pull any value back
+
+students = {
+    "Jay": {"id": "ID1", "age": 24, "grade": "A"},
+    "Eddie": {"id": "ID2", "age": 23, "grade": "B"},
+    "Dan": {"id": "ID3", "age": 45, "grade": "A"}
+    }
+# We have a dictionary inside a dictionary with multiple values assigned to a key here
+
+ print(students["Jay"]["age"])
+ > 24
+# Looking up a single key
+
+ print(
+    students["Jay"]["age"],
+    students["Jay"]["grade"]
+    )
+# Looking up multiple keys
+
+ if choice in films:
+        pass
+    # pass tells Python to continue with the programme
+    else:
+        print("Sorry, we don't have that choice")
