@@ -39,6 +39,7 @@ print(sum(list))
 round(1.5)
 # This rounds to the nearest whole no.
 
+from email.errors import MalformedHeaderDefect
 import math
 from pickle import FALSE, TRUE
 from re import L
@@ -438,8 +439,8 @@ print(b)
 
 students.items()
 > dict_items([('Jay', 24), ('Eddie', 23), ('Dan', 45)])
-# Pulls keys and values
 
+# Pulls keys and values
 b = list(students.values())[2:]
 # Can pull out slices as it's a list
 
@@ -535,3 +536,178 @@ print(item)
 
 # break statement gets out of the loop and goes to the previous statement
 # continue statement does the opposite
+
+#_____ Functions
+
+def name(x, y):
+    return operation
+# The above is the nomanclature
+# The return keyword returns the value. This can be ommited if you don't want it shown, just for the function to operate behind the scenes
+# Return is not the same as print, as print does not store the slice
+
+def addition(x, y):
+    return x + y
+
+print(addition(5, 10))
+
+> 15
+
+# Functions are useful as it allows for something to be written once then used many times
+
+# This shows that return is not the same as print
+def reverse(x):
+    return x[::-1]
+
+a = reverse("hello")
+print(type(a))
+> str
+
+b = print(a)
+print(type(b))
+> none
+
+# As print only displays the code and does not store, it you have to keep the code in a variable which can be further used and declare a new line to see the result through print, but not using that in further lines of code
+def sub (x, y):
+    return x - y
+
+a = sub(1, 4)
+print(type(a))
+# Should be done in two lines
+# If we instead printed into the same line, it would be stored as type none
+
+#_____ Variable Scope
+
+# Global = variable can be seen anywhere in the programme
+# Local = variable can only been seen in the specific local scope
+# Functions create local scopes
+# Loops and if statements don't create local scopes
+
+def f1():
+    a = 100
+    print(a)
+
+def f2():
+    print(a)
+
+print(f1)
+print(f2)
+# f2 fails as "a" was defined in f1's local scope
+# If we defined "a" on line one, it would be in global scope and both functions would work
+# Functions always create local scope inside themselves
+# If we defined "a" in the local scope of f2 as "50", "100" and "50" would print as local scopes are invisibel to either function
+# This is good as it means that function names do not overwrite eachother and we don't need to worry about creating unique names - as long as scopes don't overlap
+# You can't overwrite a global variable with a local variable
+# Local variables are destroyed once the function is
+
+a = 200
+
+def f1():
+    b = a + 10
+    print(b)
+
+def f2():
+    a = 150
+    print(a)
+
+# f1 doesn't have a defined, so used the global variable
+# f2 has a defined locally, so that takes preference
+
+a = 100
+
+def f1():
+    global a
+    a = 50
+    a + 100
+
+# global a updated inside a variable
+# global keyword and definition have to be on seperate lines
+# With dictionaries and lists, you don't have to call global, can just edit one index
+
+a = [1, 3, 2]
+
+def f1():
+    a[0] = 5
+    print (a)
+
+# Parameter = inside the func definition
+# Argument = what is called
+
+def about(name, age, likes):
+    sentence = "My name is {}, I am {} years old and I like {}".format(name, age, likes)
+
+about("Jay", 24, "footy")
+# Name, age and likes are parameters (in function definitions)
+# Jay, 24 and footy are arguments (what is passed when function is called)
+# The above is an example of positional arguments
+
+about(age = 24, name = "Jay", likes = "football")
+# This also works, and are keyword arguments
+
+def about(name, age, likes = "soccer"):
+    sentence = "My name is {}, I am {} years old and I like {}".format(name, age, likes)
+# Likes is a default parameter
+# There can be as many as I want, as long as they go last
+
+#_____ Packing & Unpacking
+
+print(1, 2, 3)
+
+numbers = [1, 2, 3]
+print(numbers)
+> [1, 2, 3]
+
+numbers = [1, 2, 3]
+print(*numbers)
+> 1 2 3
+# This has unpacked the function and stored each number as a seperate argument
+
+def add(*numbers):
+    total = 0
+    for number in numbers:
+            total = total + number
+    return(total)
+
+a = add(1, 2, 3, 4, 5)
+
+print(a)
+
+
+def about(name, age, likes):
+    sentence = "Meet {}, he is {} and likes {}".format(name, age, likes)
+    return sentence
+
+dictionary = {"name":"Jay", "age":24, "likes":"footy"}
+
+about(**dictionary)
+# One star for normal arguments
+# Double star for unpacking keyword arguments
+
+def dict(**kwargs):
+    for key, value in kwargs.items():
+        print("{}:{}".format(key, value))
+
+dict(Lauren = "female", Jay = "male")
+
+> Lauren:female
+Jay:male
+
+# It's common convention to use args to mean arguments and kwargs to mean key word arguments
+
+def arg_one(*args):
+    for stuff in args:
+        print(stuff)
+    
+my_list = ["honda", "toyota", "rover"]
+arg_one = my_list
+
+arg_one = ("honda", "toyota, "rover")
+
+# Either one of these works - an arg is needed when pulling results from a list, but not when in a variable
+
+def kwarg_one(**kwargs):
+    for key, value in kwargs.items():
+    
+example = {key1:value1, key2:value2}
+
+kwarg_one(**example)
+
