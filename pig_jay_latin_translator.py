@@ -1,4 +1,4 @@
-# get sentence from user
+ # get sentence from user
 
 original = input("Please type a sentence: ").lower().strip()
 

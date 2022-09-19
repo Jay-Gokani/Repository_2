@@ -532,3 +532,6 @@ print(even_numbers)
 words = ("jam", "contains", "strawberries")
 item = [ingredient.upper() for ingredient in words]
 print(item)
+
+# break statement gets out of the loop and goes to the previous statement
+# continue statement does the opposite
