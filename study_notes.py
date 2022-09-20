@@ -711,3 +711,98 @@ example = {key1:value1, key2:value2}
 
 kwarg_one(**example)
 
+# _____ Object Oriented Programming
+
+# Class is a template
+# When you make an instance of a class, you get an object
+# Class for a 10p coin
+# States (things like): colour, value, diameter
+# Methods (think of like behaviours, same as functions just called methods in OOP): flip()
+# By using functions and methods, we can emulate the states of a class
+# Class names start with a capital
+
+class Pound:
+    value = 1.00
+    colour = "gold"
+    num_edges = 1
+    diameter = 22.5 # mm
+    thickness = 3.15 # mm
+    heads = True
+    # We have 6 states inside this object
+
+coin1 = Pound()
+coin1.colour
+> Gold
+# Can lookup the states e.g.
+
+coin1.colour = "Green"
+print(coin1.colour)
+> Green
+# We've updated the state of the object
+
+print(coin2.colour)
+> Gold
+# The class was not updated though, just the state of the object
+
+import random
+
+class Pound:
+
+    def __init__(self, rare = False):   # Init is the constructor. By default, the coin is not rare
+        
+        self.rare = rare
+
+        if self.rare:   # This is the same as doing if self.rare == True:
+            self.value = 1.25
+        else:
+            self.value = 1.00
+        
+        self.value = 1.00
+        self.colour = "gold"
+        self.num_edges = 1
+        self.diameter = 22.5 # mm
+        self.thickness = 3.15 # mm
+        self.heads = True
+        # We have 6 states inside the constructor, which is inside the object
+        # The "self" name could be anything e.g. myCoin
+
+    def rust(self):
+        self.colour = "greenish"
+
+    def clean(self):
+        self.colour = "gold"
+
+    def flip(self):
+        heads_options = [True, False]
+        choice = random.choice(heads_options)
+        self.heads = choice
+
+    def __del__(self):
+        print("Coin spent!")
+
+
+# _____ Easier View of OOP
+
+class Pound:                        # We set the class and name it
+
+    def __init__(self):             # Initiate the first method
+        self.value = 1.00           # Creating states
+        self.colour = "gold"
+        self.num_edges = 1
+        self.diameter = 22.5        
+        self.thickness = 3.15
+        self.heads = True
+
+    def rust(self):
+        self.colour = "greenish"
+
+    def clean(self):
+        self.colour = "gold"
+
+    def __del__(self):
+        print("Coin spent!")
+
+coin1 = Pound()                     # We call coin1 and assign it in the Pound class
+coin1.rust()                        # The method is ran
+print(coin1.colour)                 # The state is queried
+> greenish
