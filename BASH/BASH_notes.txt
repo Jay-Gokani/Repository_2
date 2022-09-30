@@ -1,0 +1,136 @@
+_____NAVIGATION_____
+
+ls
+# lists directory contents
+
+ls -a
+# detailed list
+
+ls / Music
+# lists contents within Music folder
+
+ls -la Music
+# when below the directory, here in the home directory, this shows a detailed list of the directory in question
+
+ls / Mus
+# hit tab and it autocompletes the line with 'Music'
+
+cd / Music
+# goes into a directory
+
+cd
+# gets back to home directory
+
+cd Music /
+pushd / Pictures
+popd
+# goes to one directory then goes back to where you previously were (Music) - allows for the place not to be lost
+
+file .poster
+# file type e.g. JPEG
+
+sudo updatedb
+# uses the superuser account to update the db for locate to run
+
+locate headshot
+# finds files with 'headshot' in its name and shows locations
+
+which cal
+# locates a command
+# here the calendar is in usr/bin/cal
+
+history
+# shows past commands issued
+
+pwd
+# outputs path
+
+_____HELP_____
+
+whatis cal
+# gives a sentence of what something is
+
+apropos time
+# gives a dictionary of commands related to time
+
+man cal
+# manual for calendar
+
+_____WORKING WITH FILES_____
+
+mkdir Junk
+# makes a directory (folder)
+
+ls
+cd Junk/
+# goes into directory
+
+touch file1
+# creates file1 inside whereever you are (here, Junk)
+# if there is already a file with that name, it just opens and closes the file
+
+cp test_file test_copy
+# copies the file with name test_file and pastes as test_copy in the same directory
+
+clear
+# clears the command line window
+
+cp '/Users/Jay.Gokani/Pictures/Folder1/Test1' '/Users/Jay.Gokani/Documents/FolderA/Test1.txt'
+# Copies one file from a directory into another and pastes it as Test1.txt
+
+mv file2 filetwo
+# either moves a file's contents into the second file if it exists or renames
+
+# rm file2
+# deletes a file, no way to recover once you do this
+# doesn't include the hash, adding for safety
+
+# rm *
+# deletes all files in a directory
+
+# rm file*
+# deletes all files with every file that starts with "file"
+
+# rm -r dir1
+# deletes all files and directory in the directory
+
+# rmdir dir1
+# deletes the directory (as long as there's nothing inside)
+# useful for deletes empty directories to clean up
+
+cat file1
+# prints the contents of a file e.g., text in a .txt
+
+cat >> file1
+# allows you to add text to a file
+# you type then press cnt d when done
+
+cat > file1
+# adds a new file
+
+cat file1 file 2
+# concatenates the content of both together
+
+more file1
+# shows technical info of a file and can scroll by pg
+
+less file1
+# shows technical info of a file and can scroll by line
+
+nano file1
+# opens file1 text editor
+
+dmesg | less
+# the pipe takes the output of the first argument as the input of the second i.e., doing two things on one line
+
+_____USERS_____
+
+sudo updatedb
+# act as the root user to perform x
+
+sudo -s
+# temporarily allows root user access
+# runs a timer in the background and asks for the password again at the end
+# without a password, it revokes root user priveleges for sec
+
+49:30
