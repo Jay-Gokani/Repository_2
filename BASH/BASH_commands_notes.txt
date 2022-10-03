@@ -22,11 +22,15 @@ cd
 # gets back to home directory
 
 cd Music /
-pushd / Pictures
+pushd Pictures
 popd
 # goes to one directory then goes back to where you previously were (Music) - allows for the place not to be lost
 
-file .poster
+cd ..
+cd -
+# both go back one directory
+
+file poster.jpeg
 # file type e.g. JPEG
 
 sudo updatedb
@@ -92,7 +96,7 @@ mv file2 filetwo
 # deletes all files with every file that starts with "file"
 
 # rm -r dir1
-# deletes all files and directory in the directory
+# deletes all files and directories in the directory
 
 # rmdir dir1
 # deletes the directory (as long as there's nothing inside)
@@ -113,6 +117,7 @@ cat file1 file 2
 
 more file1
 # shows technical info of a file and can scroll by pg
+# q to quit
 
 less file1
 # shows technical info of a file and can scroll by line
@@ -133,4 +138,79 @@ sudo -s
 # runs a timer in the background and asks for the password again at the end
 # without a password, it revokes root user priveleges for sec
 
-49:30
+su - cindy
+#  changes user to cindy and goes to her home folder
+
+su cindy
+# stays in current home system but logged in as cindy
+
+users
+# states which user you are logged in as
+
+exist
+# logs out of user
+
+id
+# gives account info
+
+cd Downloads
+ls -l
+# long list of info about files in Downloads
+# shows owner, group, file size, last mod date, file name
+
+chmod +W file1
+# changemode, adds write permmissions to file1
+
+watch
+# reruns a command every 2s
+
+free
+# shows memory in the system
+
+watch free
+# reruns memory stats every 2s
+
+ctrl c
+# kills a command
+
+killall firefox
+# kills all firefox windows which you opened
+
+chmod 700 file1
+# gives read, write and execute permissions to me but no one else
+# 7 refers to r w e for me, 0 is nothing for group and everyone
+# 4, 2, 1 (rwx) e.g. 7 is all permissions; 6 is for r & w
+# 764 is rwx for me, rw for a group and r for everyone
+# can be any combo of the additions
+# writes to a number of bytes which refers to a certain permission code
+# x is for executable code
+
+exit
+# exits terminal
+
+command + d
+# done
+
+ctrl + l
+# clears screen
+
+_____SSH Connection_____
+# remote login into a server to run shell commands
+# data passes through many networks which could make it insecure due to interception
+# SSH prevent this issue
+# set-up SSH connection in terminal,  SSH client on host and SSH software on target
+# usually exists on servers and host computers
+# need to know SSH address and key
+
+# ex1:
+ssh jay@142.93.58.23    # jay is the username and IP address is the server host
+# types in password
+# can executes remote commands now
+
+# ex2:
+ssh jay@server.badboy.com
+# password
+
+scp file1.txt jay@server.badboy.com:/Documents/Tests
+# password
+# securely copies files to the host
