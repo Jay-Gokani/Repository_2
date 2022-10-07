@@ -1,0 +1,134 @@
+Topology = how devices on a network relate to eachother: star, ring, tree etc
+
+Building Blocks
+- Devices. MAC address is unique to each device
+- Connections e.g., wireless or ethernet cabled
+- Switches. Network equipment which connects devices
+- Routers. Directs traffic from LAN to LAN
+- Network servers. Across the internet e.g., fileshares and serve applications
+
+OSI (Open Systems Interconnection) Model
+- Big picture view of hardware to application
+- Useful as it's a framework for how devices should communicate on a network
+- Theoretical and not hard and fast
+- Transport layer looks at number of packets sent, data layer looks at what is in the packets 
+- 7, 6, 5 are the upper layers, 4, 3, 2, 1 are lower
+
+7. Application. How an app interfaces with the network. HTTP, DNS, FTP
+
+6. Presentation. Application data is translated to a common network language for delivery. JPEG, GIF, TIFF
+
+5. Session. Starts and stops communication between parties and seperates data e.g., Spotify data goes to Spotify. SQL, NFS, RPC
+
+4. Transport. Packs message, sends, ensures delivery. TCP (two way agreement to exchange data), UDP (I'm just sending it, you may get it or not)
+
+3. Network. Routes data across WANs and LANs. IP (IPV4, IPV6), routers
+
+2. Data. Ensures that data sent is the same as what it received. Network card on a computer. Switches, network cards, ARP (discovery protocol for switches to find another devices on the network)
+
+1. Physical. Transmits data over the network cable via microwave, radio wave etc. Hubs, Bluetooth, RJ45 network plug
+
+Network Protocols
+- A standardised way for devices to communicate on a network
+- Needed as devices need to speak the same language across software types, manufacturer, model
+- Different types for security, health, communication
+- e.g., TCP, UDP, HTTP, Ethernet, Bluetooth and DNS
+
+Network Services
+- Programme on a network which provides a function to users
+- File services, communication services, printing services, DNS, email, authentification
+
+IP Addresses
+- Unique number which is used to identify a device on a network, like a mailing address
+- Contains of a network ID (city and street), host ID (house number) and port (door into house)
+- IPv4. 32 bit addresses, 4 bn addresses
+- IPv6. 128 bit addresses, many addresses
+- NAT (Network Address Translation) - translates the public IP address (which received data though WAN) to private (for use with LAN)
+- Internet service provider assigns a dynamic private IP address using protocol DHCP
+
+Network Port
+- A number associated with an IP address
+- Identifies an application or service running on a networked device
+- 65k+ ports, first 1023 are reserved for well-known services e.g., DNS on port 53 and HTTP runs on port 80
+
+IPv4 Address
+e.g., 192.168.2.14:80
+- First 3 octets are network ID. Tells routers which network to send packets to
+- Forth octet is Host ID which identifies the device
+- After the colon, it's not part of the IP address but written next to it. It's the port number
+- The IP address and format of it can change based on subnetting
+
+IPv6 Address
+e.g., [2001:0db8:3a4d:0016:0000:0000:1c2f:1a2b]:80
+- First 3 are the site prefix (like the network ID)
+- Forth octet is the Subnet ID
+- Final four octets is the Interface ID
+- After the colon is the Port number
+
+Network Classes
+- Old method being phased out
+- Networks given either a small, medium or large number of IP addresses
+- Issue is if an org is small-medium, they get medium and waste addresses
+
+IP Subnetting
+- Diving a network into smaller networks, subnets
+- Parts of the host portion of the IP address are changed to define the subnet
+- Subnet mask does this and tells devices which portion of the IP address to use for the subnet
++ Smaller networks are easier to manage, better allocation of IP addresses in a limited range, improved performance (routing is more efficient as certain data is sent to specific parts)
+
+DNS (Domain Name Service)
+- Phonebook of networks
+- Globally network of servers which translate human-readable domains (example.com) into machine readable ID Addresses (192.728.1.13)
+
+DNS consists of:
+Domain name e.g., google.com
+DNS records (lists of info)
+Recursive name server/resolver - first name server in a DNS query, communicates with other servers
+Root name server - handles the query issued by the resolver. 13 in the world and managed centrally
+TLD name server - handles top level domains (.com .org .co.uk)
+Authoritative name server - final server in a DNS query. Holds IP info for domain names
+
+Computer -> Recurive Name Server -> (talks to the Root Name Server, TLD Name Server and Authoritative Name Server) -> computer
+
+. = root level
+.net, .com, .edu = top-level domain
+google, mysite, yahoo = second-level domain
+mail, chemdept = sub-domain
+
+mail.google.com. = fully qualified domain name (FQDN)
+
+Routing
+- Routers decide which route data goes to a computer
+- Routers use routing table (all the networks they know about and sharing this info with other routers). They share this through routing protocols - their own rules of comms
+- Shortest path may not always be the fastest, like going down Main Street or round the block
+
+Two Types of Routes
+- Static routes always use the same path to destination - hard coded by a network admin
+- Dynamic routes are based on factors such as traffic, speed and outages. Paths are communicated back to other routers
+
+1. PC asks DNS server what the IP address is of example.com
+2. DNS server packages this into a packet and sends it back with a sequence num (so the computer knows how to order the packets) like shipping a desk in packets all with the shipping address, where it's from and how to assemble when it arrives
+3. Packets are routed by routers e.g., a shipping company
+
+Finding My Network Info in Linux
+
+ip address show
+# shows IP Address, MAC Address etc
+
+ip routes show
+# shows default route 'default via ...'
+
+nmcli
+# shows resolver info (DNS)
+
+dig google.com
+# remote host info
+
+traceroute google.com
+# shows routes for data to reach remote host
+
+ping google.com
+# to see if the remote system is online and responds
+
+host google.com
+# shows network info of that domain

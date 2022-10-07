@@ -21,10 +21,9 @@ cd / Music
 cd
 # gets back to home directory
 
-cd Music /
 pushd Pictures
 popd
-# goes to one directory then goes back to where you previously were (Music) - allows for the place not to be lost
+# goes to one directory then goes back to where you previously were - allows for the place not to be lost
 
 cd ..
 cd -
@@ -112,8 +111,11 @@ cat >> file1
 cat > file1
 # adds a new file
 
+cat file1 > file1copy
+# puts text from file1 into file1copy
+
 cat file1 file 2
-# concatenates the content of both together
+# concatenates the content of both together - prints but doesn't save together
 
 more file1
 # shows technical info of a file and can scroll by pg
@@ -128,6 +130,12 @@ nano file1
 dmesg | less
 # the pipe takes the output of the first argument as the input of the second i.e., doing two things on one line
 
+head file1
+# prints first 10 lines of file1
+
+tail file1
+# prints last 10 lines of file1
+
 _____USERS_____
 
 sudo updatedb
@@ -135,7 +143,7 @@ sudo updatedb
 
 sudo -s
 # temporarily allows root user access
-# runs a timer in the background and asks for the password again at the end
+# runs a 5 mins timer in the background and asks for the password again at the end
 # without a password, it revokes root user priveleges for sec
 
 su - cindy
@@ -214,3 +222,76 @@ ssh jay@server.badboy.com
 scp file1.txt jay@server.badboy.com:/Documents/Tests
 # password
 # securely copies files to the host
+
+whereis ls
+# shows location of where a command is stored
+
+find /Users/Jay.Gokani -type f -name TestFile
+# shows path of where a file with name TestFile is
+# can be modified to search by size, extention, file type etc
+
+/var/log
+
+
+grep "hello" File1
+# prints all lines of text which contain "hello"
+# can have multiple words and the path for a fil can be given instead of its name
+
+grep -l "hello" *.txt
+# prints the file names all of txt files which contain the text "hello"
+
+sed 's/hello/hi/' file1.txt
+# finds and replaces 'hello' to 'hi'
+
+df | tee disk_usage.txt
+# tee writes an output to a file and is useful in combo with a predecessor command
+# here we output the disk usage then write it to a file with tee
+# this contains a pipe, which takes an output from one command and uses it temporarily as the input for another
+
+vim
+# opensource free text editor which code can be written in
+# contains own special syntax
+
+sudo apt update
+# used to install, update and remove packages in Linux distributions
+# the above command updates a package through the superuser 
+
+chown Lauren file1
+# change ownership of a file or dir
+# changes owner of file1 to Lauren
+
+chgrp group2 testfile
+# changes group of file to group 2
+
+ps
+# prints info of processes
+
+top
+# shows CPU usage filtered by highest 
+
+nice -10 gnome-terminal
+# sets CPU allocation of 10 to gnome-terminal
+
+env
+# displays current environment e.g. pwd, home, shell and user
+
+set
+# sets names and values of variables in a text editor
+
+export
+# similar to env, shows metrics
+
+$PATH
+# shows the path where executable files are stored
+
+tar -cf archive.tar file1 file2
+# tape archive, creates an archive for storing files
+
+gzip file1
+# creates a zip file
+
+gzip archive.tar
+# multiple files can be archived if in a tar
+
+gunzip file1.gz
+# unzips a gzip file
