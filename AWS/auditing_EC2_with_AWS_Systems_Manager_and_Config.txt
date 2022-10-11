@@ -1,0 +1,18 @@
+Set-up Systems Manager
+Systems Manager > Host Management > Create
+# Review data of services, group by application, monitor, troubleshoot and remediate
+
+Log into EC2 with Systems Manager Session Manager
+Systems Manager > Node Management > Session Manager > Start session > (Run commands to list info of EC2 instances in CLI) > Terminate CLI session
+# Used Session Manager to connect to an EC2 instance which is managed by Systems Manager and ran commands to show data
+
+Enable AWS Config and create a rule to check EC2 instance compliance
+Config > Get Started > Settings > Record all resources in this region > ec2-instance-managed-by-systems-manager 
+# A compliance rule which shows with EC2 are and are not managed by Systems Manager 
+
+Create an AWS Config rule to audit IAM permissions
+Config > Rules > Add rule > AWS Managed Rules > iam-user-no-policies-check > Add rule
+# Checks if a user has inline IAM policies attached
+
+Explore installed applications on EC2 instances
+Systems Manager > Inventory

@@ -1,0 +1,27 @@
+Launch a CF stack from an existing template
+CloudFormation > Create Stack > New resources > Template is ready, Amazon S3 URL > URL (pointing to an S3 bucket) > Name > Create
+# Launch a stack of EC2 instances from a template
+
+Edit the CF stack by adding an EC2 instance
+CloudFormation > Stack1 > Update > Edit template in Designer > View in Designer > Resources > Instances > EC2 > (Drag EC2 into the template) > Edit the YAML > Validate template > Create stack > Update stack
+# Added an EC2 instance in the visual Designer app
+
+Create a resource group, add EC2 instances and tag them
+Resource Groups & Tag Editor > Tag Editor > Find resources to tag > Resource types > AWS::EC2::Instance > Search > Manage tags > Add tag > Tag key = CostCenter, Tag value = Production > Apply > Create resource group > Tag based > Tag key = CostCenter, Tag value = Production > Create group
+# Created a group around the EC2 instances and tagged them
+
+Using stack drift in CloudFormation
+CloudFormation > Stack actions > Detect drift > Stack actions > View drift results > Select an EC2 instance > Examine the drift between the expected and actual outcomes
+# This shows the differences of an instance between the template (expected) and reality (actual)
+
+Update CF stack to add tags
+CloudFormation > Stacks > Update > Edit template in designer > View in Designer > AppServer3 > Add a tag in YAML (see below) > Do the same for each EC2 instance > Validate template > Refresh diagram > Create stack > Update Stack
+
+	- Key: CostCenter
+	Value: Production
+
+# Added the tag to each EC2 instance for tracking
+
+Verify changes to the CloudFormation Stack
+EC2 > Instances > AppServer3 > Tags > (CostCenter is there) > CloudFormation > Stack actions > Detect drift > Stack actions > View drift results > ("IN_SYNC" displays)
+# Checking to see if the tag has been applied

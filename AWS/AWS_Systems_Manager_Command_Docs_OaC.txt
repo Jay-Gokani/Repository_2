@@ -1,0 +1,53 @@
+Create an Amazon CloudWatch Log Group
+CloudWatch > Log groups > Create
+
+Create a command doc to install and activate Apache web server
+Systems Manager > Documents > Shared resources > Create document > Command or session > (the below YAML) > Create document > Name 'myInstallApache'
+
+---
+schemaVersion: '2.2'
+mainSteps:
+- action: 'aws:runShellScript'
+  name: 'configureApache'
+  inputs:
+      runCommand:
+      - 'sudo yum update -y'
+      - 'sudo yum install -y httpd'
+      - 'sudo service httpd start'
+      - 'sudo chkconfig httpd on'
+      - 'sudo chkconfig httpd --add'
+
+# Apache web server is an opensource server which processes HTTP requests
+
+Run a command document to install an Apache WebServer EC2 instance
+Systems Manager > Documents > myInstallApache command doc > Run command > Targets > Choose a resource group >  Group1 > Enable CloudWatch Logs > Name > Run
+# Running the EC2 instance and initialising CloudWatch Logs on it
+
+Create a command doc to update specific file contents
+Systems Manager > Documents > Shared resources > Create document > Command or session > (the below code) > Create document > Name = 'WebServerSSMAgentLogGroup'
+
+---
+schemaVersion: '2.2'
+mainSteps:
+- action: 'aws:runShellScript'
+  name: 'configureApache'
+  inputs:
+      runCommand:
+      - 'sudo bash -c "echo Hello World from $(hostname -f) > /var/www/html/index.html"'
+
+# A command doc which prints a message when accessed - shows if the process worked
+
+Update the contents of a file for all EC2 instances in a resource group
+Systems Manager > Documents > myInstallApache command doc > Run command > Targets > Choose a resource group >  Group1 > Enable CloudWatch Logs > Name > Run 'WebServerSSMAgentLogGroup'
+# Enabling CloudWatch Logs on the resource group
+
+Run an automation document to make a config change to a live EC2 instance
+Systems Manager > Automation > Execute automation > Owned by AWS > AWS-ResizeInstance > Execute automation > Simple execution > t2.small in InstanceType > Execute 
+# Running an AWS automation script to resize an EC2 instance
+
+Verify that the automation document has resized the AppServer1 EC2 instance
+EC2 > Instances > AppServer1 > Details > Instance type (reads 't2.small')
+
+Look at the CloudWatch log groups to review
+CloudWatch > Logs > Log groups > (select a log stream)
+# Shows data such as status, update, cleanup etc
