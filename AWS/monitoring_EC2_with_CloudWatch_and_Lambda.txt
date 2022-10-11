@@ -1,0 +1,43 @@
+Update Systems Manager agent on an EC2 instance
+Systems Manager > Documents > AWS-UpdateSSMAgent in 'Owned by AWS' > Run > Choose instances manually > AppServer > Run
+# EC2 updated successfully
+
+Use Systems Manager to install CloudWatch Agent to an EC2 instance
+Systems Manager > Documents > AWS-ConfigureAWSPackage in 'Owned by AWS' > Run > Choose instances manually > Name = 'AmazonCloudWatchAgent' > AppServer > Run
+# EC2 updated successfully
+
+Start CloudWatch agent on an EC2 instance
+Systems Manager > Documents > AmazonCloudWatch-ManageAgent in 'Owned by AWS' > Run > Choose instances manually > AppServer > Run
+# CloudWatch agent started
+
+Check status of an agent running on an EC2 instance
+Systems Manager > Run command > AmazonCloudWatch-ManageAgent > Run > Action = Status, Optional Configuration Source = Default > Choose instances manually > AppServer > Run > Instance ID > Output > 'Status = Running' displays
+# The command doc has verified that the agent is running
+
+Check CloudWatch agent metrics are being pushed to CloudWatch
+CloudWatch > Metrics > All metrics > 'CWAgent' shows
+# Metrics are being pushed
+
+Create a CloudWatch dashboard
+CloudWatch > Create dashboard > Line > Metrics > CWAgent > Imageld, InstanceID, InstanceType > AppServer > Create Widget > Save Dashboard > Add widget > Stacked area > Metrics > EC2 > NetworkIN & NetworkOut > Create widget > Save dashboard
+# A dashboard has been created with 2 widgets: memory usage and network activity
+
+Create an SNS topics and subscribe to it
+Simple Notification Service > Topics > SysOpsTeamPager > Create subscription > (enter email address as the endpoint) > Create subscription > (in inbox, verify address)
+# Now notifications will go to the email address, in reality this may be a shared inbox of engineers
+
+Create a CloudWatch alarm
+CloudWatch > Create alarm > Select metric > EC2 > StatusCheckFailed_System > Select metric > Static > Greater/Equal to 1 > (Name it and give a desc) > Create alarm
+# Alarm created for when an EC2 instance fails
+
+Start a session with EC2
+Systems Manager > Session Manager > Start Session
+# Session started with an EC2 instance in the terminal
+
+Create a Lambda Canary function
+Lambda > Create function > Blueprint > canary > name it > Rule name: CheckWebsiteScheduledEvent, Rule description: CheckWebsiteScheduledEvent trigger
+# Lambda function created
+
+Test the Lambda function
+Lambda > lambda-canary > Test > Save > 'Congratulations'
+# Confirmation of success
