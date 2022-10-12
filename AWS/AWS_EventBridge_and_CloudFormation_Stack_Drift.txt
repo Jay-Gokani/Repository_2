@@ -1,0 +1,14 @@
+Part 1: Amazon EventBridge
+
+Create and subscribe to an SNS notification
+EventBridge rule setup
+EventBridge > Rules > Create rule > name = 'Automation Success' > Rule with event pattern > Event source = 'AWS services', Event type = 'automation' > EC2 Automation Execution Status-change Notification > Success > Next > Target = 'SNS topic' > Topic = 'SuccessfulAutomationAction' > Create rule
+# EventBridge rule created and linked with SNS topic
+
+Test SNS by running a Systems Manager SSM doc
+Systems Manager > Documents > SSM doc name is 'AWS-ConfigureCloudWatchOnEC2Instance' > Execute
+# The doc ran and I was emailed the success
+
+Detect stack drift and return to template
+CloudFormation > Identify which resources have drifted > (Sec Group has drifted, Port 22 open) > Systems Manager > Run SSM doc named 'AWS-DisablePublicAccessForSecurityGroup' > Verify success
+ # Port 22 was open, due to the script, it is resolved

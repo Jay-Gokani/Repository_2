@@ -1,0 +1,36 @@
+Subscribe to an SNS topic
+SNS > Topics > BackupNotificationTopic > Create subscription > Email > (enter email) > Create subscription
+# SNS messages will be sent to the provided email address
+
+Create a backup plan
+AWS Backup > Dashboard > Create Backup plan > Build a new plan > (name it 'myBackupPlan') > Add new tag > Key = 'Name', Value = 'myApp Backup' > Backup rule configuration Rule name = 'myDailyBackupRule' > Create new Backup vault > name = 'myDailyBackupVault' > Recovery Point tags, Key = 'Name', Value = 'myApp Recovery' > Create Plan
+# A backup vault was created and initialised to default snapshot once per day
+
+Assign resources to backup plan
+AWS Backup > Resource assignments > Assign resources > General > Resource name = 'myEBSVolumes' > IAM role = 'BackupRole' > Include specific resource type > EBS > Volume = webAppVolume > Key = 'Name', Value = 'webAppVolume' > Assign resources
+# EBS volumes were put under the backup plan
+
+Subscribe AWS Backup to the SNS topic
+Cloud9 > (open IDE) > input the CLI code below
+
+aws backup put-backup-vault-notifications \
+--endpoint-url https://backup.eu-west-2.amazonaws.com \
+--sns-topic-arn arn:aws:sns:eu-west-2:349006566903:BackupNotificationTopic \
+--backup-vault-name myDailyBackupVault \
+--backup-vault-events RESTORE_JOB_COMPLETED BACKUP_JOB_COMPLETED
+
+# Backup is configered to send events from the myDailyBackupVault vault to the SNS topic BackupNotificationTopic
+
+Create an on-demand backup of an EBS vol
+Backup > Protected resources > Settings > EBS > VolumeID = 'webAppVolume' > IAM role = 'BackupRole' > Create on-demand backup
+# Daily backups were set up previously, but an on-demand one was set up now
+
+Lambda can be used to notify if a backup has been successful or failed
+
+Test the backups can be restored
+AWS Backup > Jobs > Restore jobs > (mentions it is 'Completed')
+# The backup has worked
+
+Locate the logs of the Lambda function
+CloudWatch > Logs > Log groups
+# The Lambda function's logs are found here
