@@ -1,0 +1,125 @@
+_____OS TERMINOLOGY_____
+Linux is a type of OS
+Ubuntu is a distribution (type) of Linux
+Terminal is a type of CLI for the MAC OSX which takes user input and translates it to machine readable output
+BASH is a type of shell, the outer layer of an OS
+ls is a BASH command i.e., a shell command
+
+Shell = interface between kernel and user and executes based on user input. A CLI with BASH being one type
+mkdir is an example of a BASH command. As BASH is a type of shell, it is also a shell command
+
+Kernel = the programme which interacts with hardware, the core of an OS, types are monolithic, micro and hybrid
+
+
+_____WRITING A SCRIPT_____
+BASH scripts can be written in Terminal text editors, such as nano
+
+ls junk
+nano
+# goes into the junk directory then text editor
+
+cd
+mkdir bin
+# best practice is creating a directory in the home directory called 'bin'
+
+~ = alt + n
+
+_____EXAMPLE SCRIPT_____
+
+#!/bin/bash
+
+# this is a simple script
+
+echo "hello"
+
+exit
+________________________
+
+# that's a BASH script above
+# script is named as 'hello' and saved (can't be named with a space)
+
+ls
+> hello
+
+chmod +x hello
+# makes it an executable file
+
+ls
+> hello
+# 'hello' is now in green, showing it is an executable
+
+./hello
+# script runs
+# if this script was in a bin folder, you could run it just by name 
+
+which hello
+# shows location of script
+
+mv hello ~/bin/
+
+_____EXAMPLE SCRIPT 2_____
+
+#!/bin/bash
+
+# system check
+
+echo "Uptime is:"
+uptime
+
+exit
+__________________________
+
+
+_____Variables_____
+
+dog=milo
+echo $dog
+> milo
+# this is a variable
+
+today="$(date)"
+echo today
+> Mon 17 Oct
+$ this is a command inside a variable
+
+_____if_____
+
+if [x == y]; 
+then
+    a
+fi
+
+
+
+#!/bin/bash
+
+NAME="Jay"
+
+if [ "$NAME" = "Jay" ];
+then
+    echo "Hi Jay"
+else
+    echo "Invalid username"
+fi
+
+
+_____for_____
+
+for x in y; do
+    z
+done
+
+
+nano names.txt
+# saves a txt file then opens it in text editor
+
+Jay
+Tom
+Jerry
+Dan
+
+# I now have a list, save then exit
+
+for NAMES in $(cat names.txt); do
+    echo "The names are: $NAMES"
+done
