@@ -18,6 +18,8 @@ ls / Mus
 cd / Music
 # goes into a directory
 
+cd "/Users/Jay.Gokani/OneDrive - PA Consulting Group/Other/Python Files/Repository_2"
+
 cd
 # gets back to home directory
 
