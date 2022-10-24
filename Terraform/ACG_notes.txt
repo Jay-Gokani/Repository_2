@@ -1,0 +1,48 @@
+Exam
+1hr, 50-60 Qs, online proctored, 2yr until expiry
+
+
+*****
+(Insert notes from tablet and phone)
+
+TF holds a state file to keep metadata on what is actually deployed
+When changes are to be made, the state file is examined to consider what changes need to be made
+Never lose it or let it fall in the wrong hands
+terraform.tfstate
+
+
+Variables and Outputs
+
+Variable types:
+- string
+- number 
+- bool
+
+Complex variable types:
+- list
+- set
+- map
+- object
+- tuple
+
+variable "name" {
+    condition1 = x
+    condition2 = y
+}
+
+# that is the structure
+# variable is a reserved keyword
+
+
+variable "dog" {
+    description = "the dog's name"
+    type = string
+    
+    validations {
+        condition = length(var.dog) > 3
+        error message = "The length of the name must be longer than 3"
+    }
+}
+
+# this variable has validation
+

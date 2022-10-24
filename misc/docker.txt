@@ -1,0 +1,8 @@
+Docker Terminology
+
+docker file = blueprint for an image, including FROM, COPY, RUN and CMD
+
+image = a template for running a container created from the docker file
+
+container = a running image process
+
