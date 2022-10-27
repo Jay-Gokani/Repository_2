@@ -1,0 +1,41 @@
+# I am already signed into AWS and have linked TF with it
+
+# in Terminal, make a directory for Terraform code
+mkdir terraform_code
+
+# go into home directory, creat then edit a tf file
+ls
+cd terraform_code
+vim main.tf
+
+# enter the below, note that ami and subnet_id are placeholders for actual values
+provider "aws" {
+  region = "us-east-1"
+}
+resource "aws_instance" "vm" {
+  ami           = "*example1*"
+  subnet_id     = "*example2"
+  instance_type = "t3.micro"
+  tags = {
+    Name = "my-first-tf-node"
+  }
+}
+
+# save and exit vim
+esc
+shift
+:wq
+
+# pull AWS provider
+terraform init
+
+# test if the connection to AWS works
+terraform plan
+
+# deploy
+terraform apply
+
+# check if the EC2 instance was deployed in the AWS Console
+
+# destroy the instance
+terraform destroy

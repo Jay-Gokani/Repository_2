@@ -1,0 +1,151 @@
+# overall process is 3 files: main, variables, providers. On main, we write resources code then init, plan, apply
+
+# create a directory, then a file called main.tf
+# edit the file by inputting the below
+# we create three blocks: terraform, aws and an EC2 resource
+# it is best practice to start with these two blocks
+
+terraform {
+ required_providers {
+   aws = {
+     source  = "hashicorp/aws"
+     version = "~> 3.0"
+   }
+ }
+}
+provider "aws" {
+ region = “us-west-1”
+}
+
+resource "aws_instance" "demo" {
+ ami = “ami-abc123”
+ instance_type = “t2.micro”
+tags = {
+   name = "group a"
+ }
+}
+
+# the code is ready, so we install the AWS plugin through init
+terraform init
+
+# view the code
+terraform plan
+
+# launch the code
+terraform apply
+
+# let's open the file and add a variable to set default instance type
+# variables could be a string, number, bool, structure etc type
+variable "type" {
+ default = "t2.micro"
+ description = "Size of VM"
+}
+
+# view then apply
+terraform plan
+terraform apply
+
+# for best practice, we could create 3 files to make it easier, but keeping in one file still works
+# variables.tf = input variables
+# provider.tf = for the provider(s) we are using
+# main.tf = resources to be created
+
+
+
+# we want two regions
+# variables.tf then write two variable blocks to reference two regions 
+variable "region_west" {
+  default     = "us-west-1"
+  description = "AWS West Region"
+}
+
+variable "region_east" {
+  default     = "us-east-1"
+  description = "AWS East Region"
+}
+
+# go into the provider.tf file and enter the below to reference the region variables
+provider "aws" {
+  alias  = "aws_west"
+  region = var.region_west
+}
+
+provider "aws" {
+  alias  = "aws_east"
+  region = var.region_east
+}
+
+# reference the region in the main.tf file through the alias
+resource "aws_instance" "demo" {
+  provider      = aws.aws_west
+  ami           = var.ami
+  instance_type = var.type
+
+  tags = {
+    name = "Demo System"
+  }
+}
+
+
+# a k8 deployment exists, let's find the name of it and see what the infra is
+terraform state list
+> kubernetes_deployment.tf-k8s-deployment
+> kubernetes_service.tf-k8s-service
+
+terraform state show kubernetes_deployment.tf-k8s-deployment
+> # kubernetes_deployment.tf-k8s-deployment:
+resource "kubernetes_deployment" "tf-k8s-deployment" {
+    id               = "default/tf-k8s-deploy"
+    wait_for_rollout = true
+
+    metadata {
+        generation       = 1
+        labels           = {
+            "name" = "terraform-k8s-deployment"
+        }
+        name             = "tf-k8s-deploy"
+        namespace        = "default"
+        resource_version = "819"
+        uid              = "f04b1ab4-ea1d-4678-8b43-57668b17d57b"
+    }
+
+    spec {
+        min_ready_seconds         = 0
+        paused                    = false
+        progress_deadline_seconds = 600
+        replicas                  = "2"
+        revision_history_limit    = 10
+
+        selector {
+            match_labels = {
+                "name" = "terraform-k8s-deployment"
+            }
+        }
+
+        strategy {
+            type = "RollingUpdate"
+
+# rather than displaying everything in the deployment, we can grep for a certain output
+# the below command shows the deployment in the backend but then searches for a particular input and returns the output
+terraform state show kubernetes_deployment.tf-k8s-deployment | egrep replicas
+                    replicas                      = "2"
+
+# let's increase the replicas to 4 
+# vim into the main.tf then press 'i' for insert
+# change number of replicas from 2 to 4
+# save and quit
+                    
+terraform plan
+terraform apply
+
+kubectl get pods
+
+# we can now see there are 4 replicas
+
+# let's destroy everything
+terraform destroy
+
+ls
+
+# we can see a file called: terraform.tfstate.backup
+# can use it if we accidentally delete infra
