@@ -1,0 +1,124 @@
+# we want to create a module for a new project and the main, variables and output tf files
+
+# make the directory structure and go into it
+mkdir terraform_project
+cd terraform_project
+mkdir -p modules/vpc
+cd ~/terraform_project/modules/vpc
+
+# create the main file
+vim main.tf
+
+provider "aws" {
+  region = var.region
+}
+
+resource "aws_vpc" "this" {
+  cidr_block = "10.0.0.0/16"
+}
+
+resource "aws_subnet" "this" {
+  vpc_id     = aws_vpc.this.id
+  cidr_block = "10.0.1.0/24"
+}
+
+data "aws_ssm_parameter" "this" {
+  name = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
+}
+
+
+# create the variables file
+vim variables.tf
+
+variable "region" {
+  type    = string
+  default = "us-east-1"
+}
+
+
+# create the outputs file
+vim outputs.tf
+
+output "subnet_id" {
+  value = aws_subnet.this.id
+}
+
+output "ami_id" {
+  value = data.aws_ssm_parameter.this.value
+}
+
+
+cd ~/terraform_project/
+vim main.tf
+
+variable "main_region" {
+  type    = string
+  default = "us-east-1"
+}
+
+provider "aws" {
+  region = var.main_region
+}
+
+module "vpc" {
+  source = "./modules/vpc"
+  region = var.main_region
+}
+
+resource "aws_instance" "my-instance" {
+  ami           = module.vpc.ami_id
+  subnet_id     = module.vpc.subnet_id
+  instance_type = "t2.micro"
+}
+
+
+vim outputs.tf
+
+output "PrivateIP" {
+  description = "Private IP of EC2 instance"
+  value       = aws_instance.my-instance.private_ip
+}
+
+
+terraform init
+terraform fmt
+terraform validate
+terraform plan
+terraform apply --auto-approve
+
+terraform_project
+main.tf modules outputs.tf  terraform.tfstate
+
+# inside main.tf we have the following
+# notice that the vpc isn't explicitly shown, it's held in modules
+variable "main_region" {
+  type    = string
+  default = "us-east-1"
+}
+
+provider "aws" {
+  region = var.main_region
+}
+
+module "vpc" {
+  source = "./modules/vpc"
+  region = var.main_region
+}
+
+resource "aws_instance" "my-instance" {
+  ami           = module.vpc.ami_id
+  subnet_id     = module.vpc.subnet_id
+  instance_type = "t2.micro"
+
+# if we go into modules > vpc > variables.tf then we can see the below which shows the region 
+modules
+vpc
+main.tf outputs.tf variables.tf
+
+variable "region" {
+  type    = string
+  default = "us-east-1"
+}
+
+# instead of explicitly writing resources in our code, we've used a module
+# this module can be sent or accessed from anyone in the team which is efficient 

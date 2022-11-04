@@ -1,0 +1,40 @@
+terraform fmt 
+# makes tf code readable using their best practice formatting
+
+taint
+# destroys a resource then recreates
+# could be useful when a behaviour is only shown upon creation
+
+vim main.tf
+# we notice that the aws_instance named 'webserver' should have its URL updated from 'version 1' to 'version 2'
+# we edit the URL, save and exit
+
+terraform taint aws_instance.webserver
+# a message is returned noting that the resource has been tainted
+# we can also see in the terraform.tfstate file, that the instance has been marked as 'tainted'
+
+terraform apply
+# it notes that one resource is being added and one is being destroyed
+
+# we want to bring a pre-exisiting resource into terraform so we can manage it
+# resource ID is found then referenced in our main.tf file
+
+# open main.tf
+vim main.tf
+
+# at the end of the main.tf file, we add a placeholder for the resource we want to import
+resource "aws_instance" "webserver2" {}
+
+# import on the name of the placeholder, the resource ID
+terraform import aws_instace.webserver2 i-j98d29ndw9sf
+
+# terraform pulls all the details onto the state.tf file
+
+# in main.tf we want the new resource to have the same ami and instance type as one other resource, so we pull those into the resource block
+resource "aws_instance" "webserver2" {
+    ami = data.aws.webserver-ami-value
+    instance_type = "t3.micro"
+}
+
+terraform formatting
+terraform apply

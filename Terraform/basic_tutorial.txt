@@ -1,4 +1,4 @@
-# overall process is 3 files: main, variables, providers. On main, we write resources code then init, plan, apply
+# overall process is 3 files: main, variables, providers. On main, we write resources code then fmt, init, validate, plan, apply
 
 # create a directory, then a file called main.tf
 # edit the file by inputting the below
@@ -149,3 +149,4 @@ ls
 
 # we can see a file called: terraform.tfstate.backup
 # can use it if we accidentally delete infra
+

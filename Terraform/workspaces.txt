@@ -1,0 +1,78 @@
+# workspaces track different state files
+# we'll have 2 workspaces
+# workspace 1: default workspace, state file "terraform.tfstate", ${terraform.workspace} value is "default", deploys to prod
+# workspace 2: test workspace, state file in the "terraform.tfstate.d" directory, ${terraform.workspace} value is "test", deploys to staging
+
+# clone the repo
+git clone <URL>
+
+# go into the working directory
+cd x
+
+# we can see the following files
+> main.tf     network.tf      readme.tf
+
+# view the workspaces
+terraform workspace list
+> * default
+
+# we will use default for prod, let's create a test workspace
+terraform workspace new test
+
+# confirm it is there
+# the asterisk refers to which workspace I am in
+terraform workspace list
+> default
+> * test
+
+# let's check out the resources in main.tf
+cat main.tf
+> provider "aws" {
+  region = terraform.workspace == "default" ? "us-east-1" : "us-west-2"
+}
+
+#Get Linux AMI ID using SSM Parameter endpoint in us-east-1
+data "aws_ssm_parameter" "linuxAmi" {
+  name = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
+}
+
+#Create and bootstrap EC2 in us-east-1
+resource "aws_instance" "ec2-vm" {
+  ami                         = data.aws_ssm_parameter.linuxAmi.value
+  instance_type               = "t3.micro"
+  associate_public_ip_address = true
+  vpc_security_group_ids      = [aws_security_group.sg.id]
+  subnet_id                   = aws_subnet.subnet.id
+  tags = {
+    Name = "${terraform.workspace}-ec2"
+  }
+}
+
+# couple of things to note:
+# we mention that the deployment region should be us-east-1 if default, if not then us-west-2
+# we've tagged it with the workspace name for easier tracking. If it was deployed in test, it would have the tag $test-ec2
+
+# deploy
+terraform apply --auto-approve
+
+# look at what has been deployed
+# can also look in the aws console
+terraform state list
+> data.aws_availability_zones.azs
+> data.aws_ssm_parameter.linuxAmi
+> aws_instance.ec2-vmaws_security_group.sgaws_subnet.subnet
+> aws_vpc.vpc_master
+
+# switch to default workspace
+terraform workspace select default
+
+# deploy resources in default workspace
+terraform apply --auto-approve
+
+# destroy resources in test workspace
+terraform workspace select test
+terraform destroy --auto-approve
+
+# delete test workspace
+terraform workspace select default
+terraform workspace delete test
